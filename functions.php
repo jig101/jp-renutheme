@@ -123,7 +123,12 @@ function renubath_theme_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'renubath_theme_scripts' );
-
+function remove_cssjs_ver( $src ) {
+    if( strpos( $src, '?ver=' ) )
+        $src = remove_query_arg( 'ver', $src );
+    return $src;
+}
+add_filter( 'style_loader_src', 'remove_cssjs_ver', 10, 2 );
 /**
  * Implement the Custom Header feature.
  */
